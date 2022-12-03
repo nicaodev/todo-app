@@ -8,16 +8,17 @@ import { ITaskList } from '../../model/itask-list';
 })
 export class TodoListComponent implements DoCheck {
 
-  public taskList: Array<ITaskList> =
-    [
-      // { task: "Nova", checked: true },
-      // { task: "Nova_2", checked: false }
-    ];
+  public taskList: Array<ITaskList> = JSON.parse(localStorage.getItem("list") || '[]');
 
   constructor() { }
   ngDoCheck(): void {
-
-    this.taskList.sort((first, last) => Number(first.checked) - Number(last.checked));
+    this.setLocalStorage();
+  }
+  setLocalStorage() {
+    if (this.taskList) {
+      this.taskList.sort((first, last) => Number(first.checked) - Number(last.checked));
+      localStorage.setItem("list", JSON.stringify(this.taskList));
+    }
   }
 
   public setEmitTaskList(event: string) {
@@ -42,3 +43,7 @@ export class TodoListComponent implements DoCheck {
       this.taskList = [];
   }
 }
+
+
+
+//https://ng-girls.gitbook.io/todo-list-tutorial-portuguese/deploy_to_githubpages
