@@ -14,9 +14,18 @@ export class TodoListComponent implements OnInit {
       { task: "Nova_2", checked: false }
     ];
 
-  constructor() {
+  constructor() { }
+  ngOnInit(): void { }
 
+  public deleteItemTaskList(event: number) {
+    this.taskList.splice(event, 1);
   }
-  ngOnInit(): void {
+
+  public deleteAllTaskList() {
+
+    const confirm = window.confirm("Deseja deletar tudo?")
+
+    if (confirm)
+      this.taskList = [];
   }
 }
